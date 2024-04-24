@@ -54,6 +54,17 @@
                                 value="{{ old('phone') }}">
                         </div>
                         <div class="col-md-6 mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                id="password" name="password" placeholder="Password" required>
+                            @error('password')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
                             <label for="role" class="form-label">Roles</label>
                             <select class="form-control form-select" id="role" name="role">
                                 <option value="USER">USER</option>
@@ -64,14 +75,23 @@
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                id="password" name="password" placeholder="Password" required>
-                            @error('password')
+                            <label for="position" class="form-label">Position</label>
+                            <input type="text" class="form-control @error('position') is-invalid @enderror"
+                                id="position" name="position" placeholder="Position" value="{{ old('position') }}"
+                                required>
+                            @error('position')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-
+                        <div class="col-md-6 mb-3">
+                            <label for="department" class="form-label">Department</label>
+                            <input type="text" class="form-control @error('department') is-invalid @enderror"
+                                id="department" name="department" placeholder="Department" value="{{ old('department') }}"
+                                required>
+                            @error('department')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
                     </div>
 
                     <button type="submit" class="btn btn-primary rounded px-4 mt-2">Submit</button>

@@ -62,6 +62,25 @@
                         </div>
                     </div>
 
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="position" class="form-label">Position</label>
+                            <input type="text" class="form-control @error('position') is-invalid @enderror" id="position"
+                                name="position" placeholder="Position" value="{{ $user->position }}">
+                            @error('position')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="department" class="form-label">Department</label>
+                            <input type="text" class="form-control @error('department') is-invalid @enderror" id="department"
+                                name="department" placeholder="Department" value="{{ $user->department }}">
+                            @error('department')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
                     <button type="submit" class="btn btn-primary rounded px-4 mt-2">Submit</button>
                 </form>
 
