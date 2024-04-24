@@ -42,7 +42,6 @@
                         <tr class="fw-semibold">
                             <th>Name</th>
                             <th>Phone</th>
-                            <th>Created</th>
                             <th>Roles</th>
                             <th></th>
                         </tr>
@@ -66,9 +65,6 @@
                                 </td>
                                 <td>
                                     <p class="mb-0 fs-3">{{ $user->phone }}</p>
-                                </td>
-                                <td>
-                                    <p class="mb-0 fs-3">{{ $user->created_at }}</p>
                                 </td>
                                 <td>
                                     @if ($user->role == 'ADMIN')
