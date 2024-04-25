@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Attendance;
 use App\Models\Company;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -35,6 +36,7 @@ class DatabaseSeeder extends Seeder
         User::factory(10)->create();
 
 
+
         Company::create([
             'name' => 'PT. Goys Membangun Indonesia',
             'email' => 'info@goysgaming.com',
@@ -45,5 +47,8 @@ class DatabaseSeeder extends Seeder
             'time_in' => '08:00',
             'time_out' => '17:00',
         ]);
+
+        Attendance::factory(10)->create();
+
     }
 }

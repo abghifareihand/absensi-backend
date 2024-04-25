@@ -32,6 +32,14 @@
                         <span class="hide-menu">User</span>
                     </a>
                 </li>
+                <li class="sidebar-item {{ Request::is('attendance') ? 'active' : '' }}">
+                    <a class="sidebar-link" href="{{ route('attendance.index') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-user-plus"></i>
+                        </span>
+                        <span class="hide-menu">Attendance</span>
+                    </a>
+                </li>
 
 
                 <li class="nav-small-cap">

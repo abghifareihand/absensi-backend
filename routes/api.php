@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AttendanceController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CompanyController;
 use Illuminate\Http\Request;
@@ -12,11 +13,23 @@ Route::middleware('auth:sanctum')->group(function () {
     // update user
     Route::put('user', [AuthController::class, 'update']);
 
+    // update profile
+    Route::post('update-profile', [AuthController::class, 'updateProfile']);
+
     // logout
     Route::post('logout', [AuthController::class, 'logout']);
 
     // get company
     Route::get('company', [CompanyController::class, 'get']);
+
+    // check in
+    Route::post('checkin', [AttendanceController::class, 'checkIn']);
+
+    // check out
+    Route::post('checkout', [AttendanceController::class, 'checkOut']);
+
+    // is chekedin
+    Route::get('is-checkin', [AttendanceController::class, 'isCheckedin']);
 });
 
 
