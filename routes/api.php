@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CompanyController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,8 @@ Route::middleware('auth:sanctum')->group(function () {
     // logout
     Route::post('logout', [AuthController::class, 'logout']);
 
+    // get company
+    Route::get('company', [CompanyController::class, 'get']);
 });
 
 

@@ -33,6 +33,7 @@
                     </a>
                 </li>
 
+
                 <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">Profile</span>
@@ -43,6 +44,14 @@
                             <i class="ti ti-user-circle"></i>
                         </span>
                         <span class="hide-menu">My Profile</span>
+                    </a>
+                </li>
+                <li class="sidebar-item {{ Request::is('company') ? 'active' : '' }}">
+                    <a class="sidebar-link" href="{{ route('company.show', 1) }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-box-multiple"></i>
+                        </span>
+                        <span class="hide-menu">Company</span>
                     </a>
                 </li>
             </ul>
