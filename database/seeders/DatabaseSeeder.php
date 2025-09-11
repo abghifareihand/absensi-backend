@@ -18,6 +18,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Admin
+        User::factory()->create([
+            'name' => 'Super Admin',
+            'username' => 'superadmin',
+            'email' => 'superadmin@gmail.com',
+            'role' => 'admin',
+            'password' => Hash::make('admin123'),
+            'identity_number' => 'ADMIN99',
+            'phone' => '0812345678',
+            'address' => 'Jl. AdminAbsensi',
+        ]);
+
+
         // buat 2 user manual
         $andi = User::factory()->create([
             'name' => 'Andi Setiadi',
