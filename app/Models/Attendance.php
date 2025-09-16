@@ -21,6 +21,8 @@ class Attendance extends Model
         'check_out_longitude',
         'check_in_at',
         'check_out_at',
+        'start_date',
+        'end_date',
     ];
 
 

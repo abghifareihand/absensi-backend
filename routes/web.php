@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AttendanceController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
@@ -18,6 +19,12 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::middleware(['auth'])->group(function () {
     // ================= DASHBOARD =================
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+
+    Route::prefix('attendance')->group(function () {
+        Route::get('/present', [AttendanceController::class, 'presentIndex'])->name('present.index');
+        Route::get('/permission', [AttendanceController::class, 'permissionIndex'])->name('permission.index');
+    });
 
     // ================= USERS =================
     Route::prefix('users')->group(function () {

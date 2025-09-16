@@ -26,8 +26,8 @@ class AttendancePointController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'latitude' => 'required|numeric|between:-90,90',
-            'longitude' => 'required|numeric|between:-180,180',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
             'radius' => 'required|integer|min:1',
         ]);
 

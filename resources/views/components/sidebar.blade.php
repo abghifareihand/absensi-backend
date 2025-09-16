@@ -41,20 +41,34 @@
                     </li>
                 </ul>
             </li>
+
+            <li class="nav-item dropdown {{ Request::is('attendance*') ? 'active' : '' }}">
+                <a href="#" class="nav-link has-dropdown"><i class="fa fa-calendar"></i><span>Attendance</span></a>
+                <ul class="dropdown-menu">
+                    <li class="{{ Request::is('attendance/present*') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('present.index') }}">Present</a>
+                    </li>
+                    <li class="{{ Request::is('attendance/permission*') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('permission.index') }}">Permission</a>
+                    </li>
+                </ul>
+            </li>
+
             <li class="{{ Request::is('points') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('points.index') }}"><i class="fa fa-location-arrow">
                     </i> <span>Titik Lokasi</span>
                 </a>
             </li>
-            <li class="{{ Request::is('settings') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('settings.index') }}"><i class="fa fa-cog">
-                    </i> <span>Title Aplikasi</span>
-                </a>
-            </li>
-            <li class="{{ Request::is('events') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('events.index') }}"><i class="fa fa-cog">
+             <li class="{{ Request::is('events') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('events.index') }}"><i class="fa fa-calendar-alt">
                     </i> <span>Events</span>
                 </a>
             </li>
+            <li class="{{ Request::is('settings') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('settings.index') }}"><i class="fa fa-font">
+                    </i> <span>Title Aplikasi</span>
+                </a>
+            </li>
+
     </aside>
 </div>

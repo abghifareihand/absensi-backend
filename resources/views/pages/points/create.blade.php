@@ -29,6 +29,7 @@
                         <div class="form-group">
                             <label>Latitude</label>
                             <input type="number"
+                                step="any"
                                 class="form-control @error('latitude') is-invalid @enderror"
                                 name="latitude" value="{{ old('latitude') }}">
                             @error('latitude')
@@ -39,12 +40,14 @@
                         <div class="form-group">
                             <label>Longitude</label>
                             <input type="number"
+                                step="any"
                                 class="form-control @error('longitude') is-invalid @enderror"
                                 name="longitude" value="{{ old('longitude') }}">
                             @error('longitude')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+
 
                         <div class="form-group">
                             <label>Radius (m)</label>

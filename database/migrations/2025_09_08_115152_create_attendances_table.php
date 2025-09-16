@@ -31,9 +31,13 @@ return new class extends Migration
             $table->string('reason')->nullable();
             $table->string('attachment')->nullable();
 
-            // Waktu absensi
+            // Waktu absensi untuk tipe 'present'
             $table->timestamp('check_in_at')->nullable();
             $table->timestamp('check_out_at')->nullable();
+
+            // Tanggal mulai & selesai izin untuk tipe 'permission'
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
             $table->timestamps();
         });
     }
