@@ -21,8 +21,8 @@ class DatabaseSeeder extends Seeder
         // Admin
         User::factory()->create([
             'name' => 'Super Admin',
-            'username' => 'superadmin',
-            'email' => 'superadmin@gmail.com',
+            'username' => 'admin',
+            'email' => 'admin@gmail.com',
             'role' => 'admin',
             'password' => Hash::make('admin123'),
             'identity_number' => 'ADMIN99',
@@ -43,20 +43,32 @@ class DatabaseSeeder extends Seeder
             'address' => 'Jl. Bento No. 99',
         ]);
 
+        $wahyu = User::factory()->create([
+            'name' => 'Wahyu Albusstomi',
+            'username' => 'wahyu',
+            'role' => 'staff',
+            'password' => Hash::make('wahyu123'),
+        ]);
+
         $joko = User::factory()->create([
             'name' => 'Joko Sujatmiko',
             'username' => 'jokowi',
-            'role' => 'mahasiswa',
+            'role' => 'dosen',
             'password' => Hash::make('joko123'),
         ]);
 
         // jadwal untuk Andi (5 record)
-        Schedule::factory()->count(5)->create([
+        Schedule::factory()->count(15)->create([
             'user_id' => $andi->id,
         ]);
 
+        // jadwal untuk Andi (5 record)
+        Schedule::factory()->count(20)->create([
+            'user_id' => $wahyu->id,
+        ]);
+
         // jadwal untuk Joko (3 record)
-        Schedule::factory()->count(3)->create([
+        Schedule::factory()->count(10)->create([
             'user_id' => $joko->id,
         ]);
 

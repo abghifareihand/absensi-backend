@@ -18,6 +18,11 @@ class Schedule extends Model
         'location',
     ];
 
+    protected $casts = [
+        'date' => 'date',
+    ];
+
+
     public function user() {
         return $this->belongsTo(User::class);
     }

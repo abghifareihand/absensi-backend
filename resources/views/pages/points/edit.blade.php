@@ -1,132 +1,72 @@
 @extends('layouts.app')
 
-@section('title', 'Edit User')
-
-@push('style')
-    <!-- CSS Libraries -->
-    <link rel="stylesheet" href="{{ asset('library/bootstrap-daterangepicker/daterangepicker.css') }}">
-    <link rel="stylesheet" href="{{ asset('library/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('library/select2/dist/css/select2.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('library/selectric/public/selectric.css') }}">
-    <link rel="stylesheet" href="{{ asset('library/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('library/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}">
-@endpush
+@section('title', 'Edit Titik Lokasi')
 
 @section('main')
-    <div class="main-content">
-        <section class="section">
-            <div class="section-header">
-                <h1>Edit User</h1>
+<div class="main-content">
+    <section class="section">
+        <div class="section-header">
+            <h1>Edit Titik Lokasi</h1>
+        </div>
+
+        <div class="section-body">
+            <h2 class="section-title">Form Edit Titik Lokasi</h2>
+
+            <div class="card">
+                <form action="{{ route('points.update', $point->id) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text"
+                                class="form-control @error('name') is-invalid @enderror"
+                                name="name" value="{{ old('name', $point->name) }}">
+                            @error('name')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label>Latitude</label>
+                            <input type="number"
+                                class="form-control @error('latitude') is-invalid @enderror"
+                                name="latitude" value="{{ old('latitude', $point->latitude) }}">
+                            @error('latitude')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label>Longitude</label>
+                            <input type="number"
+                                class="form-control @error('longitude') is-invalid @enderror"
+                                name="longitude" value="{{ old('longitude', $point->longitude) }}">
+                            @error('longitude')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label>Radius (m)</label>
+                            <input type="number"
+                                class="form-control @error('radius') is-invalid @enderror"
+                                name="radius" value="{{ old('radius', $point->radius) }}">
+                            @error('radius')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                    </div>
+
+                    <div class="card-footer text-right">
+                        <button class="btn btn-primary">Update</button>
+                        <a href="{{ route('points.index') }}" class="btn btn-secondary">Batal</a>
+                    </div>
+                </form>
             </div>
 
-            <div class="section-body">
-                <h2 class="section-title">Users</h2>
-
-
-
-                <div class="card">
-                    <form action="{{ route('users.update', $user) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <div class="card-header">
-                            <h4>Input Text</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label>Name</label>
-                                <input type="text"
-                                    class="form-control @error('name')
-                                is-invalid
-                            @enderror"
-                                    name="name" value="{{ $user->name }}">
-                                @error('name')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label>Username</label>
-                                <input type="text"
-                                    class="form-control @error('username')
-                                is-invalid
-                            @enderror"
-                                    name="username" value="{{ $user->username }}">
-                                @error('username')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label>Email</label>
-                                <input type="email"
-                                    class="form-control @error('email')
-                                is-invalid
-                            @enderror"
-                                    name="email" value="{{ $user->email }}">
-                                @error('email')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label>Password</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            <i class="fas fa-lock"></i>
-                                        </div>
-                                    </div>
-                                    <input type="password"
-                                        class="form-control @error('password')
-                                is-invalid
-                            @enderror"
-                                        name="password">
-                                </div>
-                                @error('password')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label>Phone</label>
-                                <input type="number" class="form-control" name="phone" value="{{ $user->phone }}">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Role</label>
-                                <div class="selectgroup w-100">
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="role" value="staff" class="selectgroup-input"
-                                            @if ($user->role == 'staff') checked @endif>
-                                        <span class="selectgroup-button">Staff</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="role" value="dosen" class="selectgroup-input"
-                                            @if ($user->role == 'dosen') checked @endif>
-                                        <span class="selectgroup-button">Dosen</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="role" value="mahasiswa" class="selectgroup-input"
-                                            @if ($user->role == 'mahasiswa') checked @endif>
-                                        <span class="selectgroup-button">Mahasiswa</span>
-                                    </label>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-footer text-right">
-                            <button class="btn btn-primary">Submit</button>
-                        </div>
-                    </form>
-                </div>
-
-            </div>
-        </section>
-    </div>
+        </div>
+    </section>
+</div>
 @endsection
-
-@push('scripts')
-@endpush

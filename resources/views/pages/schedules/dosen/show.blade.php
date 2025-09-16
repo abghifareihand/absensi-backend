@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Users')
+@section('title', 'Schedule Dosen - ' . $dosen->name)
 
 @push('style')
 <!-- CSS Libraries -->
@@ -11,9 +11,9 @@
 <div class="main-content">
     <section class="section">
        <div class="section-header d-flex">
-            <h1>Data Jadwal</h1>
+            <h1>Jadwal {{ $dosen->name }}</h1>
             <div class="section-header-button ml-auto">
-                <a href="{{ route('schedules.create') }}" class="btn btn-primary">Buat Jadwal</a>
+                <a href="{{ route('schedules.dosen.create', $dosen->id) }}" class="btn btn-primary">Buat Jadwal</a>
             </div>
         </div>
         <div class="section-body">
@@ -30,28 +30,24 @@
                             <div class="table-responsive">
                                 <table class="table-striped table">
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Date</th>
-                                        <th>Start Time</th>
-                                        <th>End Time</th>
-                                        <th>Location</th>
+                                        <th>Judul</th>
+                                        <th>Tanggal</th>
+                                        <th>Waktu</th>
+                                        <th>Lokasi</th>
                                         <th style="text-align: center;">Action</th>
                                     </tr>
-                                    @foreach ($schedules as $schedule)
+                                    @forelse ($schedules as $schedule)
                                         <tr>
                                             <td>{{ $schedule->title }}</td>
-                                           <td>{{ $schedule->user ? $schedule->user->name : '-' }}</td>
-                                            <td>{{ $schedule->start_time }}</td>
-                                            <td>{{ $schedule->end_time }}</td>
-                                            <td>
-                                                <div class="badge badge-success">{{ strtoupper($schedule->location) }}</div>
-                                            </td>
+                                            <td>{{ \Carbon\Carbon::parse($schedule->date)->translatedFormat('l, d F Y') }}</td>
+                                            <td>{{ $schedule->start_time }} - {{ $schedule->end_time }}</td>
+                                            <td>{{ $schedule->location }}</td>
                                             <td>
                                                 <div class="d-flex justify-content-center">
-                                                    <a href="{{ route('schedules.edit', $schedule->id) }}" class="btn btn-sm btn-info btn-icon">
+                                                    <a href="{{ route('schedules.dosen.edit', [$dosen->id, $schedule->id]) }}" class="btn btn-sm btn-info btn-icon">
                                                         <i class="fas fa-edit"></i> Edit
                                                     </a>
-                                                    <form action="{{ route('schedules.destroy', $schedule->id) }}" method="POST" class="ml-2">
+                                                    <form action="{{ route('schedules.dosen.destroy', [$dosen->id, $schedule->id]) }}" method="POST" class="ml-2">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button class="btn btn-sm btn-danger btn-icon confirm-delete">
@@ -61,10 +57,11 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                    @endforeach
-
-
-
+                                    @empty
+                                    <tr>
+                                        <td colspan="5" class="text-center">Tidak ada data tersedia</td>
+                                    </tr>
+                                    @endforelse
                                 </table>
                             </div>
                             <div class="float-right">
@@ -82,7 +79,4 @@
 @push('scripts')
 <!-- JS Libraies -->
 <script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
-
-<!-- Page Specific JS File -->
-<script src="{{ asset('js/page/features-posts.js') }}"></script>
 @endpush

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Titik Lokasi')
+@section('title', 'Schedule Mahasiswa - ' . $mahasiswa->name)
 
 @push('style')
 <!-- CSS Libraries -->
@@ -11,9 +11,9 @@
 <div class="main-content">
     <section class="section">
        <div class="section-header d-flex">
-            <h1>Data Titik Lokasi</h1>
+            <h1>Jadwal {{ $mahasiswa->name }}</h1>
             <div class="section-header-button ml-auto">
-                <a href="{{ route('points.create') }}" class="btn btn-primary">Buat Titik Lokasi</a>
+                <a href="{{ route('schedules.mahasiswa.create', $mahasiswa->id) }}" class="btn btn-primary">Buat Jadwal</a>
             </div>
         </div>
         <div class="section-body">
@@ -30,24 +30,24 @@
                             <div class="table-responsive">
                                 <table class="table-striped table">
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Latitude</th>
-                                        <th>Longitide</th>
-                                        <th>Radius</th>
+                                        <th>Judul</th>
+                                        <th>Tanggal</th>
+                                        <th>Waktu</th>
+                                        <th>Lokasi</th>
                                         <th style="text-align: center;">Action</th>
                                     </tr>
-                                    @forelse ($points as $point)
+                                    @forelse ($schedules as $schedule)
                                         <tr>
-                                            <td>{{ $point->name ?? '-' }}</td>
-                                            <td>{{ $point->latitude }}</td>
-                                            <td>{{ $point->longitude }}</td>
-                                            <td>{{ $point->radius }}</td>
+                                            <td>{{ $schedule->title }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($schedule->date)->translatedFormat('l, d F Y') }}</td>
+                                            <td>{{ $schedule->start_time }} - {{ $schedule->end_time }}</td>
+                                            <td>{{ $schedule->location }}</td>
                                             <td>
                                                 <div class="d-flex justify-content-center">
-                                                    <a href="{{ route('points.edit', $point->id) }}" class="btn btn-sm btn-info btn-icon">
+                                                    <a href="{{ route('schedules.mahasiswa.edit', [$mahasiswa->id, $schedule->id]) }}" class="btn btn-sm btn-info btn-icon">
                                                         <i class="fas fa-edit"></i> Edit
                                                     </a>
-                                                    <form action="{{ route('points.destroy', $point->id) }}" method="POST" class="ml-2">
+                                                    <form action="{{ route('schedules.mahasiswa.destroy', [$mahasiswa->id, $schedule->id]) }}" method="POST" class="ml-2">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button class="btn btn-sm btn-danger btn-icon confirm-delete">
@@ -65,7 +65,7 @@
                                 </table>
                             </div>
                             <div class="float-right">
-                                {{ $points->withQueryString()->links() }}
+                                {{ $schedules->withQueryString()->links() }}
                             </div>
                         </div>
                     </div>

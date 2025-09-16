@@ -2,18 +2,13 @@
 
 @section('title', 'Titik Lokasi')
 
-@push('style')
-<!-- CSS Libraries -->
-<link rel="stylesheet" href="{{ asset('library/selectric/public/selectric.css') }}">
-@endpush
-
 @section('main')
 <div class="main-content">
     <section class="section">
        <div class="section-header d-flex">
-            <h1>Data Titik Lokasi</h1>
+            <h1>Data Event</h1>
             <div class="section-header-button ml-auto">
-                <a href="{{ route('points.create') }}" class="btn btn-primary">Buat Titik Lokasi</a>
+                <a href="{{ route('events.create') }}" class="btn btn-primary">Buat Event</a>
             </div>
         </div>
         <div class="section-body">
@@ -30,24 +25,28 @@
                             <div class="table-responsive">
                                 <table class="table-striped table">
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Latitude</th>
-                                        <th>Longitide</th>
-                                        <th>Radius</th>
+                                        <th>Judul</th>
+                                        <th>Gambar</th>
+                                        <th>Tanggal</th>
                                         <th style="text-align: center;">Action</th>
                                     </tr>
-                                    @forelse ($points as $point)
+                                    @forelse ($events as $event)
                                         <tr>
-                                            <td>{{ $point->name ?? '-' }}</td>
-                                            <td>{{ $point->latitude }}</td>
-                                            <td>{{ $point->longitude }}</td>
-                                            <td>{{ $point->radius }}</td>
+                                            <td>{{ $event->title }}</td>
+                                            <td style="padding-top:12px; padding-bottom:12px; vertical-align: middle;">
+                                                @if ($event->image)
+                                                    <img src="{{ asset('storage/' . $event->image) }}" alt="{{ $event->title }}" width="80" height="80" class="rounded">
+                                                @else
+                                                    <span class="text-muted">Tidak ada gambar</span>
+                                                @endif
+                                            </td>
+                                            <td>{{ \Carbon\Carbon::parse($event->event_date)->format('d-m-Y H:i') }}</td>
                                             <td>
                                                 <div class="d-flex justify-content-center">
-                                                    <a href="{{ route('points.edit', $point->id) }}" class="btn btn-sm btn-info btn-icon">
+                                                    <a href="{{ route('events.edit', $event->id) }}" class="btn btn-sm btn-info btn-icon">
                                                         <i class="fas fa-edit"></i> Edit
                                                     </a>
-                                                    <form action="{{ route('points.destroy', $point->id) }}" method="POST" class="ml-2">
+                                                    <form action="{{ route('events.destroy', $event->id) }}" method="POST" class="ml-2">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button class="btn btn-sm btn-danger btn-icon confirm-delete">
@@ -59,13 +58,13 @@
                                         </tr>
                                     @empty
                                     <tr>
-                                        <td colspan="5" class="text-center">Tidak ada data tersedia</td>
+                                        <td colspan="3" class="text-center">Tidak ada data tersedia</td>
                                     </tr>
                                     @endforelse
                                 </table>
                             </div>
                             <div class="float-right">
-                                {{ $points->withQueryString()->links() }}
+                                {{ $events->withQueryString()->links() }}
                             </div>
                         </div>
                     </div>

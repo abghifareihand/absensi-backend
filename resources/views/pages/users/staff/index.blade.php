@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Users')
+@section('title', 'Staff')
 
 @push('style')
 <!-- CSS Libraries -->
@@ -11,9 +11,9 @@
 <div class="main-content">
     <section class="section">
        <div class="section-header d-flex">
-            <h1>Data User</h1>
+            <h1>Data Staff</h1>
             <div class="section-header-button ml-auto">
-                <a href="{{ route('users.create') }}" class="btn btn-primary">Buat User</a>
+                <a href="{{ route('users.staff.create') }}" class="btn btn-primary">Buat Staff</a>
             </div>
         </div>
         <div class="section-body">
@@ -34,30 +34,22 @@
                                         <th>Username</th>
                                         <th>No. Identitas</th>
                                         <th>Email</th>
-                                        <th>Role</th>
+                                        <th>Phone</th>
                                         <th style="text-align: center;">Action</th>
                                     </tr>
-                                    @foreach ($users as $user)
-                                        @if ($user->role === 'admin')
-                                            @continue
-                                        @endif
+                                    @forelse ($users as $user)
                                         <tr>
-                                            <td>
-                                                <img alt="image" src="{{ asset('img/avatar/avatar-2.png') }}" class="rounded-circle" width="35">
-                                                <div class="d-inline-block ml-2">{{ $user->name }}</div>
-                                            </td>
-                                            <td>{{ $user->username }}</td>
-                                            <td>{{ $user->identity_number }}</td>
-                                            <td>{{ $user->email }}</td>
-                                            <td>
-                                                <div class="badge badge-success">{{ strtoupper($user->role) }}</div>
-                                            </td>
+                                            <td>{{ $user->name ?? '-' }}</td>
+                                            <td>{{ $user->username ?? '-' }}</td>
+                                            <td>{{ $user->identity_number ?? '-' }}</td>
+                                            <td>{{ $user->email ?? '-' }}</td>
+                                            <td>{{ $user->phone ?? '-' }}</td>
                                             <td>
                                                 <div class="d-flex justify-content-center">
-                                                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-info btn-icon">
+                                                    <a href="{{ route('users.staff.edit', $user->id) }}" class="btn btn-sm btn-info btn-icon">
                                                         <i class="fas fa-edit"></i> Edit
                                                     </a>
-                                                    <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="ml-2">
+                                                    <form action="{{ route('users.staff.destroy', $user->id) }}" method="POST" class="ml-2">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button class="btn btn-sm btn-danger btn-icon confirm-delete">
@@ -67,10 +59,11 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                    @endforeach
-
-
-
+                                    @empty
+                                    <tr>
+                                        <td colspan="6" class="text-center">Tidak ada data tersedia</td>
+                                    </tr>
+                                    @endforelse
                                 </table>
                             </div>
                             <div class="float-right">
@@ -88,7 +81,4 @@
 @push('scripts')
 <!-- JS Libraies -->
 <script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
-
-<!-- Page Specific JS File -->
-<script src="{{ asset('js/page/features-posts.js') }}"></script>
 @endpush

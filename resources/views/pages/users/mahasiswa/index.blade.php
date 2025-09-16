@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Titik Lokasi')
+@section('title', 'Mahasiswa')
 
 @push('style')
 <!-- CSS Libraries -->
@@ -11,9 +11,9 @@
 <div class="main-content">
     <section class="section">
        <div class="section-header d-flex">
-            <h1>Data Titik Lokasi</h1>
+            <h1>Data Mahasiswa</h1>
             <div class="section-header-button ml-auto">
-                <a href="{{ route('points.create') }}" class="btn btn-primary">Buat Titik Lokasi</a>
+                <a href="{{ route('users.mahasiswa.create') }}" class="btn btn-primary">Buat Mahasiswa</a>
             </div>
         </div>
         <div class="section-body">
@@ -31,23 +31,25 @@
                                 <table class="table-striped table">
                                     <tr>
                                         <th>Name</th>
-                                        <th>Latitude</th>
-                                        <th>Longitide</th>
-                                        <th>Radius</th>
+                                        <th>Username</th>
+                                        <th>No. Identitas</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
                                         <th style="text-align: center;">Action</th>
                                     </tr>
-                                    @forelse ($points as $point)
+                                    @forelse ($users as $user)
                                         <tr>
-                                            <td>{{ $point->name ?? '-' }}</td>
-                                            <td>{{ $point->latitude }}</td>
-                                            <td>{{ $point->longitude }}</td>
-                                            <td>{{ $point->radius }}</td>
+                                            <td>{{ $user->name ?? '-' }}</td>
+                                            <td>{{ $user->username ?? '-' }}</td>
+                                            <td>{{ $user->identity_number ?? '-' }}</td>
+                                            <td>{{ $user->email ?? '-' }}</td>
+                                            <td>{{ $user->phone ?? '-' }}</td>
                                             <td>
                                                 <div class="d-flex justify-content-center">
-                                                    <a href="{{ route('points.edit', $point->id) }}" class="btn btn-sm btn-info btn-icon">
+                                                    <a href="{{ route('users.mahasiswa.edit', $user->id) }}" class="btn btn-sm btn-info btn-icon">
                                                         <i class="fas fa-edit"></i> Edit
                                                     </a>
-                                                    <form action="{{ route('points.destroy', $point->id) }}" method="POST" class="ml-2">
+                                                    <form action="{{ route('users.mahasiswa.destroy', $user->id) }}" method="POST" class="ml-2">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button class="btn btn-sm btn-danger btn-icon confirm-delete">
@@ -59,13 +61,13 @@
                                         </tr>
                                     @empty
                                     <tr>
-                                        <td colspan="5" class="text-center">Tidak ada data tersedia</td>
+                                        <td colspan="6" class="text-center">Tidak ada data tersedia</td>
                                     </tr>
                                     @endforelse
                                 </table>
                             </div>
                             <div class="float-right">
-                                {{ $points->withQueryString()->links() }}
+                                {{ $users->withQueryString()->links() }}
                             </div>
                         </div>
                     </div>

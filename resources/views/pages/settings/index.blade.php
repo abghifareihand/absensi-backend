@@ -11,9 +11,9 @@
 <div class="main-content">
     <section class="section">
        <div class="section-header d-flex">
-            <h1>Data Titik Lokasi</h1>
+            <h1>Data Title Aplikasi</h1>
             <div class="section-header-button ml-auto">
-                <a href="{{ route('points.create') }}" class="btn btn-primary">Buat Titik Lokasi</a>
+                <a href="{{ route('settings.create') }}" class="btn btn-primary">Buat Title Aplikasi</a>
             </div>
         </div>
         <div class="section-body">
@@ -30,24 +30,20 @@
                             <div class="table-responsive">
                                 <table class="table-striped table">
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Latitude</th>
-                                        <th>Longitide</th>
-                                        <th>Radius</th>
+                                        <th>Key</th>
+                                        <th>Value</th>
                                         <th style="text-align: center;">Action</th>
                                     </tr>
-                                    @forelse ($points as $point)
+                                    @forelse ($settings as $setting)
                                         <tr>
-                                            <td>{{ $point->name ?? '-' }}</td>
-                                            <td>{{ $point->latitude }}</td>
-                                            <td>{{ $point->longitude }}</td>
-                                            <td>{{ $point->radius }}</td>
+                                            <td>{{ $setting->key }}</td>
+                                            <td>{{ $setting->value }}</td>
                                             <td>
                                                 <div class="d-flex justify-content-center">
-                                                    <a href="{{ route('points.edit', $point->id) }}" class="btn btn-sm btn-info btn-icon">
+                                                    <a href="{{ route('settings.edit', $setting->id) }}" class="btn btn-sm btn-info btn-icon">
                                                         <i class="fas fa-edit"></i> Edit
                                                     </a>
-                                                    <form action="{{ route('points.destroy', $point->id) }}" method="POST" class="ml-2">
+                                                    <form action="{{ route('settings.destroy', $setting->id) }}" method="POST" class="ml-2">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button class="btn btn-sm btn-danger btn-icon confirm-delete">
@@ -59,13 +55,13 @@
                                         </tr>
                                     @empty
                                     <tr>
-                                        <td colspan="5" class="text-center">Tidak ada data tersedia</td>
+                                        <td colspan="3" class="text-center">Tidak ada data tersedia</td>
                                     </tr>
                                     @endforelse
                                 </table>
                             </div>
                             <div class="float-right">
-                                {{ $points->withQueryString()->links() }}
+                                {{ $settings->withQueryString()->links() }}
                             </div>
                         </div>
                     </div>
